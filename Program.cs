@@ -1,55 +1,51 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Course
-{
-    public class Triangulo
-    {
-        public double A { get; set; } // Representa o lado A do triângulo
-        public double B { get; set; } // Representa o lado B do triângulo
-        public double C { get; set; } // Representa o lado C do triângulo
-
-        public double CalcularArea()
+namespace Course{
+    public class Program { //colocando o nome da classe
+        public static void Main(string[] args) //abrindo o bloco principal
         {
-            double p = (A + B + C) / 2.0; // Calcula o semiperímetro do triângulo
-            double area = Math.Sqrt(p * (p - A) * (p - B) * (p - C)); // Calcula a área do triângulo usando a fórmula de Heron
-            return area; // Retorna a área calculada
+            double[] medidasX = LerMedidasTriangulo("X"); //colocando a variavel com array e chamando uma função
+            double[] medidasY = LerMedidasTriangulo("Y"); //colocando a variavel com array e chamando uma função
+
+            double areaX = CalcularAreaTriangulo(medidasX); //colcoando a variavel e chamando uma função
+            double areaY = CalcularAreaTriangulo(medidasY); //colocando a variavel e chamando uma função
+
+            Console.WriteLine("Area de X: " + areaX.ToString("F4", CultureInfo.InvariantCulture)); //imprimindo o resultado da area para o usuario
+            Console.WriteLine("Area de Y: " + areaY.ToString("F4", CultureInfo.InvariantCulture)); //imprimindo o resultado da area para o usuario
+
+            if (areaX > areaY) // se x for maior
+            {
+                Console.WriteLine("A area de X é Maior"); //imprimindo para o usuario
+            }
+            else //se não
+            {
+                Console.WriteLine("A area de Y é Maior"); //imprimindo para o usuario
+            }
+
         }
-    }
-
-    public class Program
-    {
-        public static void Main(string[] args)
+        public static double[] LerMedidasTriangulo(string nomemedidas) //colocandoo a função e pedindo uma string
         {
-            Triangulo x = LerTriangulo("X"); // Lê as medidas do triângulo X
-            Triangulo y = LerTriangulo("Y"); // Lê as medidas do triângulo Y
+            double[] medidas = new double[3]; //colocando um array
 
-            double areaX = x.CalcularArea(); // Calcula a área do triângulo X
-            double areaY = y.CalcularArea(); // Calcula a área do triângulo Y
-
-            Console.WriteLine("Área de X = " + areaX.ToString("F4", CultureInfo.InvariantCulture)); // Imprime a área do triângulo X com 4 casas decimais
-            Console.WriteLine("Área de Y = " + areaY.ToString("F4", CultureInfo.InvariantCulture)); // Imprime a área do triângulo Y com 4 casas decimais
-
-            if (areaX > areaY)
+            Console.WriteLine("Entre com a area do triangulo " + nomemedidas); //pedindo para o usuario
+            for (int i = 0; i < 3; i++) //enquanto i for menor que 3 faça
             {
-                Console.WriteLine("Maior área: X"); // Imprime que o triângulo X tem a maior área
+                medidas[i] = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture); //o usuario precisa colocar o valor dos arrays
             }
-            else
-            {
-                Console.WriteLine("Maior área: Y"); // Imprime que o triângulo Y tem a maior área
-            }
+            return medidas; //retorne o valor
         }
 
-        public static Triangulo LerTriangulo(string nomeTriangulo)
-        {
-            Triangulo triangulo = new Triangulo();
+        public static double CalcularAreaTriangulo(double[] medidas) //abrindo a função para o calculo pedindo um array
+        { 
+            double a = medidas[0]; //colcoando as variaveis para o calculo
+            double b = medidas[1];  //colocando as variaveis para o calculo
+            double c = medidas[2]; //colocando as variaveis para o calculo
 
-            Console.WriteLine("Entre com as medidas do triângulo " + nomeTriangulo + ":"); // Solicita ao usuário que entre com as medidas do triângulo
-            triangulo.A = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture); // Lê e armazena a medida do lado A do triângulo
-            triangulo.B = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture); // Lê e armazena a medida do lado B do triângulo
-            triangulo.C = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture); // Lê e armazena a medida do lado C do triângulo
-            return triangulo; // Retorna o triângulo com as medidas lidas
+            double p = (a + b + c) / 2.0; //calculo
+            double area = Math.Sqrt(p * (p - a) * p * (p - b) * p * (p - c)); //usando raiz quadrada
+
+            return area; //retorne o resultado
         }
     }
 }
-
